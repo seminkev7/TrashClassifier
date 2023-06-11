@@ -102,31 +102,31 @@ class BinaryClassifier:
         print(prediction)
 
 
-cardboard = BinaryClassifier('/Users/cheonsemin/PycharmProjects/newly_made_codes/venv/dataset/cardboard','cardboard')
+cardboard = BinaryClassifier('/Users/cheonsemin/PycharmProjects/TrashClassifier/dataset/cardboard','cardboard')
 cardboard.data_processing()
 cardboard.layers()
 cardboard.fit()
 cardboard.single_prediction('/single_prediction/guess_what.jpg')
 
-glass = BinaryClassifier('/Users/cheonsemin/PycharmProjects/newly_made_codes/venv/dataset/glass', 'glass')
+glass = BinaryClassifier('/Users/cheonsemin/PycharmProjects/TrashClassifier/dataset/glass', 'glass')
 glass.data_processing()
 glass.layers()
 glass.fit()
 glass.single_prediction('/single_prediction/guess_what.jpg')
 
-metal = BinaryClassifier('/Users/cheonsemin/PycharmProjects/newly_made_codes/venv/dataset/metal', 'metal')
+metal = BinaryClassifier('/Users/cheonsemin/PycharmProjects/TrashClassifier/dataset/metal', 'metal')
 metal.data_processing()
 metal.layers()
 metal.fit()
 metal.single_prediction('/single_prediction/guess_what.jpg')
 
-paper = BinaryClassifier('/Users/cheonsemin/PycharmProjects/newly_made_codes/venv/dataset/paper', 'paper')
+paper = BinaryClassifier('/Users/cheonsemin/PycharmProjects/TrashClassifier/dataset/paper', 'paper')
 paper.data_processing()
 paper.layers()
 paper.fit()
 paper.single_prediction('/single_prediction/guess_what.jpg')
 
-plastic = BinaryClassifier('/Users/cheonsemin/PycharmProjects/newly_made_codes/venv/dataset/plastic', 'plastic')
+plastic = BinaryClassifier('/Users/cheonsemin/PycharmProjects/TrashClassifier/dataset/plastic', 'plastic')
 plastic.data_processing()
 plastic.layers()
 plastic.fit()
