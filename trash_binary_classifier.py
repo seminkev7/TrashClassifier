@@ -8,7 +8,8 @@ from sklearn.metrics import confusion_matrix
 class BinaryClassifier:
 
     def __init__(self, data, goal):
-        self.data = data
+        # class 초반 설정
+        self.data = data  # dataset 설정
         self.cnn = tf.keras.models.Sequential()
         self.trash = 'trash'
         self.goal = goal
@@ -18,26 +19,27 @@ class BinaryClassifier:
     def data_processing(self):
 
         train_datagen = ImageDataGenerator(
-            rescale=1. / 255,
+            rescale=1. / 255,  # 특징 스케일링
             shear_range=0.2,
             zoom_range=0.2,
-            horizontal_flip=True)
+            horizontal_flip=True)   # 기하학적인 변형을 통한 데이터 증강
         self.training_set = train_datagen.flow_from_directory(
             f'{self.data}/training_set',
-            target_size=(64, 64),
+            target_size=(64, 64),  # 적정 타겟 사이즈 - (64,64)
             batch_size=32,
-            class_mode='binary')
+            class_mode='binary')  # 이진 분류 모델
 
-        test_datagen = ImageDataGenerator(rescale=1. / 255)
+        test_datagen = ImageDataGenerator(rescale=1. / 255)  # 테스트 셋은 데이터 증강을 거치지 않음
         self.test_set = test_datagen.flow_from_directory(
             f'{self.data}/test_set',
             target_size=(64, 64),
             batch_size=32,
             class_mode='binary')
 
-        # convolution layer 추가
+
 
     def layers(self):
+        # convolution layer 추가
         self.cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu', input_shape=[64, 64, 3]))
         self.cnn.add(tf.keras.layers.MaxPool2D(pool_size=2, strides=2))  # 풀링 적용
 
@@ -47,7 +49,7 @@ class BinaryClassifier:
         self.cnn.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu'))
         self.cnn.add(tf.keras.layers.MaxPool2D(pool_size=2, strides=2))
 
-        self.cnn.add(tf.keras.layers.Flatten())
+        self.cnn.add(tf.keras.layers.Flatten())   # Flattening 과정
 
         self.cnn.add(tf.keras.layers.Dense(units=128, activation='relu'))
 
@@ -56,7 +58,7 @@ class BinaryClassifier:
         self.cnn.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
     def fit(self):
-        history = self.cnn.fit(x=self.training_set, validation_data=self.test_set, epochs=25)
+        history = self.cnn.fit(x=self.training_set, validation_data=self.test_set, epochs=25)  # epoch 25로 설정
         import matplotlib.pyplot as plt
 
         plt.plot(history.history['loss'])
@@ -101,8 +103,11 @@ class BinaryClassifier:
                 prediction = self.trash
         print(prediction)
 
+'''
+밑의 코드는 instance로 class를 불러와 각 쓰레기 종류 별로 분류하는 모델 수립 
+'''
 
-cardboard = BinaryClassifier('/Users/cheonsemin/PycharmProjects/TrashClassifier/dataset/cardboard','cardboard')
+cardboard = BinaryClassifier('/Users/cheonsemin/PycharmProjects/TrashClassifier/dataset/cardboard', 'cardboard')
 cardboard.data_processing()
 cardboard.layers()
 cardboard.fit()
@@ -131,4 +136,3 @@ plastic.data_processing()
 plastic.layers()
 plastic.fit()
 plastic.single_prediction('/single_prediction/guess_what.jpg')
-
